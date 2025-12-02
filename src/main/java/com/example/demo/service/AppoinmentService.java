@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AppoinmentService {
@@ -16,7 +20,6 @@ public class AppoinmentService {
     public AppointmentResponse processText(String textToProcess) {
         // Step 2: Entity Extraction
         Map<String, Object> entities = entityExtractionService.extractEntities(textToProcess);
-
         if (!entities.containsKey("date_obj") || !entities.containsKey("department")) {
             return AppointmentResponse.builder()
                     .status("needs_clarification")

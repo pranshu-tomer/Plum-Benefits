@@ -21,12 +21,34 @@ public class EntityExtractionService {
             entities.put("department", department);
         }
 
+        Date start = new Date();
         List<Date> dates = timeParser.parse(text);
+        
         if (!dates.isEmpty()) {
-            entities.put("date_obj", dates.get(0));
+            Date parsedDate = dates.get(0);
+            if (isTimeExplicit(text, start, parsedDate)) {
+                entities.put("date_obj", parsedDate);
+            }
         }
 
         return entities;
+    }
+
+    private boolean isTimeExplicit(String text, Date start, Date parsed) {
+        if (text.toLowerCase().contains("now")) {
+            return true;
+        }
+
+        java.util.Calendar startCal = java.util.Calendar.getInstance();
+        startCal.setTime(start);
+        
+        java.util.Calendar parsedCal = java.util.Calendar.getInstance();
+        parsedCal.setTime(parsed);
+
+        boolean sameTime = startCal.get(java.util.Calendar.HOUR_OF_DAY) == parsedCal.get(java.util.Calendar.HOUR_OF_DAY) &&
+                           Math.abs(startCal.get(java.util.Calendar.MINUTE) - parsedCal.get(java.util.Calendar.MINUTE)) <= 1;
+
+        return !sameTime;
     }
 
     private String extractDepartment(String text) {
