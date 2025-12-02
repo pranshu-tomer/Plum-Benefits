@@ -11,6 +11,7 @@ import java.util.Map;
 public class AppoinmentService {
 
     private final EntityExtractionService entityExtractionService;
+    private final NormalizationService normalizationService;
 
     public AppointmentResponse processText(String textToProcess) {
         // Step 2: Entity Extraction
@@ -23,9 +24,11 @@ public class AppoinmentService {
                     .build();
         }
 
+        Map<String, Object> normalized = normalizationService.normalize(entities);
+
         return AppointmentResponse.builder()
-                .status("Ok")
-                .appointment(entities)
+                .status("ok")
+                .appointment(normalized)
                 .build();
     }
 
