@@ -60,6 +60,12 @@
 			<artifactId>tess4j</artifactId>
 			<version>5.9.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.ocpsoft.prettytime</groupId>
+			<artifactId>prettytime-nlp</artifactId>
+			<version>5.0.6.Final</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AppointmentRequest;
+import com.example.demo.dto.AppointmentResponse;
+import com.example.demo.service.AppoinmentService;
 import com.example.demo.service.OcrService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,11 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 public class AppointmentController {
 
     private final OcrService ocrService;
+    private final AppoinmentService appoinmentService;
 
     @PostMapping("/parse")
-    public String parseAppointment(@RequestBody AppointmentRequest request) {
-        return request.getText();
+    public AppointmentResponse parseAppointment(@RequestBody AppointmentRequest request) {
+        return appoinmentService.processText(request.getText());
     }
 
     @PostMapping(value = "/parse-file", consumes = MULTIPART_FORM_DATA_VALUE)
