@@ -26,7 +26,7 @@ public class EntityExtractionService {
         
         if (!dates.isEmpty()) {
             Date parsedDate = dates.get(0);
-            if (isTimeExplicit(text, start, parsedDate)) {
+            if (isDateAndTimeExplicit(text, start, parsedDate)) {
                 entities.put("date_obj", parsedDate);
             }
         }
@@ -34,21 +34,25 @@ public class EntityExtractionService {
         return entities;
     }
 
-    private boolean isTimeExplicit(String text, Date start, Date parsed) {
-        if (text.toLowerCase().contains("now")) {
-            return true;
-        }
+    private boolean isDateAndTimeExplicit(String text, Date start, Date parsed) {
+        String lowerText = text.toLowerCase();
 
         java.util.Calendar startCal = java.util.Calendar.getInstance();
         startCal.setTime(start);
-        
+
         java.util.Calendar parsedCal = java.util.Calendar.getInstance();
         parsedCal.setTime(parsed);
 
-        boolean sameTime = startCal.get(java.util.Calendar.HOUR_OF_DAY) == parsedCal.get(java.util.Calendar.HOUR_OF_DAY) &&
-                           Math.abs(startCal.get(java.util.Calendar.MINUTE) - parsedCal.get(java.util.Calendar.MINUTE)) <= 1;
+        if (lowerText.contains("today") || lowerText.contains("tonight")) {
+            boolean sameTime = startCal.get(java.util.Calendar.HOUR_OF_DAY) == parsedCal.get(java.util.Calendar.HOUR_OF_DAY) &&
+                    Math.abs(startCal.get(java.util.Calendar.MINUTE) - parsedCal.get(java.util.Calendar.MINUTE)) <= 1;
+            return !sameTime;
+        }
 
-        return !sameTime;
+        boolean isSameDay = startCal.get(java.util.Calendar.YEAR) == parsedCal.get(java.util.Calendar.YEAR) &&
+                            startCal.get(java.util.Calendar.DAY_OF_YEAR) == parsedCal.get(java.util.Calendar.DAY_OF_YEAR);
+        
+        return !isSameDay;
     }
 
     private String extractDepartment(String text) {
