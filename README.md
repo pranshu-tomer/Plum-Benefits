@@ -13,12 +13,12 @@
 - [Architecture](#-architecture)
 - [Technology Stack](#-technology-stack)
 - [API Endpoints](#-api-endpoints)
+- [Guardrails and Validation](#-guardrails-and-validation)
 - [Getting Started](#-getting-started)
 - [Usage Examples](#-usage-examples)
 - [Testing](#-testing)
 - [Project Structure](#-project-structure)
 - [Design Decisions](#-design-decisions)
-- [Evaluation Criteria Compliance](#-evaluation-criteria-compliance)
 - [Alternative Approach](#-alternative-approach)
 - [Future Enhancements](#-future-enhancements)
 
@@ -32,7 +32,7 @@ The **AI Appointment Scheduler** is a backend service designed to parse both **t
 This system automates the extraction, parsing, and normalization of such data into a standardized format.
 
 ---
-## 🏗️ Architecture
+## Architecture
 
 The system follows a **layered service architecture** with clear separation of concerns:
 
@@ -60,7 +60,7 @@ graph TD
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Component | Technology       | Purpose |
 |-----------|------------------|---------|
@@ -72,7 +72,7 @@ graph TD
 
 ---
 
-## 🌐 API Endpoints
+## API Endpoints
 
 ### **1. Parse Text Appointment**
 
@@ -314,7 +314,7 @@ tessdata/
 
 ---
 
-## 💡 Design Decisions
+## Design Decisions
 
 ### 1. **Explicit Date/Time Validation**
 To avoid ambiguous bookings, the system validates that:
