@@ -130,4 +130,89 @@ class AppointmentControllerTest {
                 .andExpect(jsonPath("$.appointment.date").value("2026-01-15"))
                 .andExpect(jsonPath("$.appointment.time").value("16:00"));
     }
+
+    @Test
+    @DisplayName("Should return needs_clarification")
+    void testAppoinmentStatusNotOk1() throws Exception {
+        Map<String, String> requestBody = Map.of(
+                "text", "I am having a tooth pain. Can you Book a dentist appoinment for day after tomorrow"
+        );
+
+        mockMvc.perform(
+                        post("/api/parse")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestBody))
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("needs_clarification"))
+                .andExpect(jsonPath("$.message").value("Ambiguous date/time or department"));
+    }
+
+    @Test
+    @DisplayName("Should return needs_clarification")
+    void testAppoinmentStatusNotOk2() throws Exception {
+        Map<String, String> requestBody = Map.of(
+                "text", "Can you Book a dentist appoinment at 3pm"
+        );
+
+        mockMvc.perform(
+                        post("/api/parse")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestBody))
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("needs_clarification"))
+                .andExpect(jsonPath("$.message").value("Ambiguous date/time or department"));
+    }
+
+    @Test
+    @DisplayName("Should return needs_clarification")
+    void testAppoinmentStatusNotOk3() throws Exception {
+        Map<String, String> requestBody = Map.of(
+                "text", "Can you Book a dentist appoinment for day after at 3pm"
+        );
+
+        mockMvc.perform(
+                        post("/api/parse")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestBody))
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("needs_clarification"))
+                .andExpect(jsonPath("$.message").value("Ambiguous date/time or department"));
+    }
+
+    @Test
+    @DisplayName("Should return needs_clarification")
+    void testAppoinmentStatusNotOk4() throws Exception {
+        Map<String, String> requestBody = Map.of(
+                "text", "Can you Book a dentist appoinment at 4pm"
+        );
+
+        mockMvc.perform(
+                        post("/api/parse")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestBody))
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("needs_clarification"))
+                .andExpect(jsonPath("$.message").value("Ambiguous date/time or department"));
+    }
+
+    @Test
+    @DisplayName("Should return needs_clarification")
+    void testAppoinmentStatusNotOk5() throws Exception {
+        Map<String, String> requestBody = Map.of(
+                "text", "Can you Book a dentist appoinment for today"
+        );
+
+        mockMvc.perform(
+                        post("/api/parse")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestBody))
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("needs_clarification"))
+                .andExpect(jsonPath("$.message").value("Ambiguous date/time or department"));
+    }
 }

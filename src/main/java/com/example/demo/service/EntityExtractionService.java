@@ -43,16 +43,18 @@ public class EntityExtractionService {
         java.util.Calendar parsedCal = java.util.Calendar.getInstance();
         parsedCal.setTime(parsed);
 
-        if (lowerText.contains("today") || lowerText.contains("tonight")) {
-            boolean sameTime = startCal.get(java.util.Calendar.HOUR_OF_DAY) == parsedCal.get(java.util.Calendar.HOUR_OF_DAY) &&
-                    Math.abs(startCal.get(java.util.Calendar.MINUTE) - parsedCal.get(java.util.Calendar.MINUTE)) <= 1;
-            return !sameTime;
+        if (!lowerText.contains("today") && !lowerText.contains("tonight")) {
+            boolean isSameDay = startCal.get(java.util.Calendar.YEAR) == parsedCal.get(java.util.Calendar.YEAR) &&
+                    startCal.get(java.util.Calendar.DAY_OF_YEAR) == parsedCal.get(java.util.Calendar.DAY_OF_YEAR);
+            if(isSameDay){
+                return !isSameDay;
+            }
         }
 
-        boolean isSameDay = startCal.get(java.util.Calendar.YEAR) == parsedCal.get(java.util.Calendar.YEAR) &&
-                            startCal.get(java.util.Calendar.DAY_OF_YEAR) == parsedCal.get(java.util.Calendar.DAY_OF_YEAR);
-        
-        return !isSameDay;
+        boolean sameTime = startCal.get(java.util.Calendar.HOUR_OF_DAY) == parsedCal.get(java.util.Calendar.HOUR_OF_DAY) &&
+                Math.abs(startCal.get(java.util.Calendar.MINUTE) - parsedCal.get(java.util.Calendar.MINUTE)) <= 1;
+
+        return !sameTime;
     }
 
     private String extractDepartment(String text) {
