@@ -25,6 +25,7 @@ class AppointmentControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+//    Update Date
     @Test
     @DisplayName("Should return OK")
     void testAppoinmentStatusOk1() throws Exception {
@@ -47,6 +48,7 @@ class AppointmentControllerTest {
                 .andExpect(jsonPath("$.appointment.time").value("16:00"));
     }
 
+//    Update date
     @Test
     @DisplayName("Should return OK")
     void testAppoinmentStatusOk2() throws Exception {
@@ -68,6 +70,7 @@ class AppointmentControllerTest {
                 .andExpect(jsonPath("$.appointment.time").value("20:00"));
     }
 
+//    Update date
     @Test
     @DisplayName("Should return OK")
     void testAppoinmentStatusOk3() throws Exception {
@@ -89,6 +92,7 @@ class AppointmentControllerTest {
                 .andExpect(jsonPath("$.appointment.time").value("20:00"));
     }
 
+//    Update date
     @Test
     @DisplayName("Should return OK")
     void testAppoinmentStatusOk4() throws Exception {
@@ -110,6 +114,7 @@ class AppointmentControllerTest {
                 .andExpect(jsonPath("$.appointment.time").value("20:00"));
     }
 
+//    Update Date
     @Test
     @DisplayName("Should return OK")
     void testAppoinmentStatusOk5() throws Exception {
@@ -214,5 +219,30 @@ class AppointmentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("needs_clarification"))
                 .andExpect(jsonPath("$.message").value("Ambiguous date/time or department"));
+    }
+
+//    Update Date
+    @Test
+    @DisplayName("Should return OK")
+    void testAppoinmentWithLargeInput() throws Exception {
+        // given
+        Map<String, String> requestBody = Map.of(
+                "text", "I wakeup in morning and I am having a tooth pain. " +
+                        "Can you Book a dentist appoinment for day after tomorrow @ 4:12 pm. " +
+                        "I will go to dentist with my brother. So make sure you book the appoinment. " +
+                        "Also inform my brother, I don't want to be late"
+        );
+
+        // when + then
+        mockMvc.perform(
+                        post("/api/parse")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestBody))
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("ok"))
+                .andExpect(jsonPath("$.appointment.department").value("Dentist"))
+                .andExpect(jsonPath("$.appointment.date").value("2025-12-05"))
+                .andExpect(jsonPath("$.appointment.time").value("16:12"));
     }
 }
