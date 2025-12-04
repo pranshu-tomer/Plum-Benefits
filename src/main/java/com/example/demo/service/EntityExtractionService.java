@@ -59,10 +59,12 @@ public class EntityExtractionService {
 
     private String extractDepartment(String text) {
         String lowerText = text.toLowerCase();
-        if (lowerText.contains("dentist")) return "dentist";
-        if (lowerText.contains("doctor")) return "general_practitioner";
-        if (lowerText.contains("cardio")) return "cardiology";
-        // Add more mappings as needed
-        return null;
+        if (lowerText.contains("dentist")) return "dentistry";
+        if (lowerText.contains("ortho")) return "orthopedics";
+        if (lowerText.contains("cardio") || lowerText.contains("cardiologist")) return "cardiology";
+        if (lowerText.contains("dermatologist")) return "dermatology";
+        if (lowerText.contains("pediatric")) return "pediatrics";
+        if (lowerText.contains("physio")) return "physiotherapy";
+        return "general_medicine";
     }
 }

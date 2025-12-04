@@ -42,9 +42,9 @@ class AppointmentControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("ok"))
-                .andExpect(jsonPath("$.appointment.department").value("Dentist"))
+                .andExpect(jsonPath("$.appointment.department").value("Dentistry"))
 //                .andExpect(jsonPath("$.appointment.date").exists())
-                .andExpect(jsonPath("$.appointment.date").value("2025-12-03")) // Add expected date
+                .andExpect(jsonPath("$.appointment.date").value("2025-12-04")) // Add expected date
                 .andExpect(jsonPath("$.appointment.time").value("16:00"));
     }
 
@@ -65,8 +65,8 @@ class AppointmentControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("ok"))
-                .andExpect(jsonPath("$.appointment.department").value("General_practitioner"))
-                .andExpect(jsonPath("$.appointment.date").value("2025-12-05"))
+                .andExpect(jsonPath("$.appointment.department").value("General_medicine"))
+                .andExpect(jsonPath("$.appointment.date").value("2025-12-06"))
                 .andExpect(jsonPath("$.appointment.time").value("20:00"));
     }
 
@@ -87,7 +87,7 @@ class AppointmentControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("ok"))
-                .andExpect(jsonPath("$.appointment.department").value("Dentist"))
+                .andExpect(jsonPath("$.appointment.department").value("Dentistry"))
                 .andExpect(jsonPath("$.appointment.date").value("2025-12-08"))
                 .andExpect(jsonPath("$.appointment.time").value("20:00"));
     }
@@ -109,7 +109,7 @@ class AppointmentControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("ok"))
-                .andExpect(jsonPath("$.appointment.department").value("Dentist"))
+                .andExpect(jsonPath("$.appointment.department").value("Dentistry"))
                 .andExpect(jsonPath("$.appointment.date").value("2025-12-16"))
                 .andExpect(jsonPath("$.appointment.time").value("20:00"));
     }
@@ -131,7 +131,7 @@ class AppointmentControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("ok"))
-                .andExpect(jsonPath("$.appointment.department").value("Dentist"))
+                .andExpect(jsonPath("$.appointment.department").value("Dentistry"))
                 .andExpect(jsonPath("$.appointment.date").value("2026-01-15"))
                 .andExpect(jsonPath("$.appointment.time").value("16:00"));
     }
@@ -241,8 +241,42 @@ class AppointmentControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("ok"))
-                .andExpect(jsonPath("$.appointment.department").value("Dentist"))
-                .andExpect(jsonPath("$.appointment.date").value("2025-12-05"))
+                .andExpect(jsonPath("$.appointment.department").value("Dentistry"))
+                .andExpect(jsonPath("$.appointment.date").value("2025-12-06"))
                 .andExpect(jsonPath("$.appointment.time").value("16:12"));
+    }
+
+    @Test
+    @DisplayName("Should map department")
+    void testAppoinmentDepartment1() throws Exception {
+        Map<String, String> requestBody = Map.of(
+                "text", "Please book a doctor appointment for today at 5 pm"
+        );
+
+        mockMvc.perform(
+                        post("/api/parse")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestBody))
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("ok"))
+                .andExpect(jsonPath("$.appointment.department").value("General_medicine"));
+    }
+
+    @Test
+    @DisplayName("Should map department")
+    void testAppoinmentDepartment2() throws Exception {
+        Map<String, String> requestBody = Map.of(
+                "text", "Please book a dentist appointment for today at 5 pm"
+        );
+
+        mockMvc.perform(
+                        post("/api/parse")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(requestBody))
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("ok"))
+                .andExpect(jsonPath("$.appointment.department").value("Dentistry"));
     }
 }
