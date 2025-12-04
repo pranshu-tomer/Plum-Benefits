@@ -9,18 +9,19 @@
 
 ## Table of Contents
 
-- [Overview](#-overview)
-- [Architecture](#-architecture)
-- [Technology Stack](#-technology-stack)
-- [API Endpoints](#-api-endpoints)
-- [Guardrails and Validation](#-guardrails-and-validation)
-- [Getting Started](#-getting-started)
-- [Usage Examples](#-usage-examples)
-- [Testing](#-testing)
-- [Project Structure](#-project-structure)
-- [Design Decisions](#-design-decisions)
-- [Alternative Approach](#-alternative-approach)
-- [Future Enhancements](#-future-enhancements)
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Technology Stack](#technology-stack)
+- [API Endpoints](#api-endpoints)
+- [Guardrails and Validation](#guardrails-and-validation)
+- [Getting Started](#getting-started)
+- [Usage Examples](#usage-examples)
+- [Testing](#testing)
+- [Project Structure](#project-structure)
+- [Design Decisions](#design-decisions)
+- [AI Usage](#ai-usage)
+- [Alternative Approach](#alternative-approach)
+- [Future Enhancements](#future-enhancements)
 
 ---
 
@@ -364,6 +365,42 @@ mvn test
 The project includes:
 - **Unit Tests**: Service layer testing with mocked dependencies
 
+---
+
+## AI Usage
+
+This project was developed with the assistance of **ChatGPT** as a productivity tool, used to enhance development efficiency while maintaining full ownership of core implementation decisions.
+
+### Where AI Was Used
+
+#### 1. **Documentation & README Creation**
+- **Tool**: ChatGPT (GPT-4)
+- **Purpose**: Structuring documentation, formatting markdown, generating professional descriptions
+- **Example Prompts**:
+  - *"Generate API documentation examples showing request/response formats"*
+  - *"Create a mermaid diagram for the service architecture"*
+
+#### 2. **Code Review & Best Practices**
+- **Tool**: ChatGPT
+- **Purpose**: Reviewing code for potential improvements, suggesting Spring Boot best practices
+- **Example Prompts**:
+  - *"Review this service class for proper dependency injection patterns"*
+  - *"Suggest improvements for this entity extraction logic"*
+
+#### 3. **Research & Library Selection**
+- **Tool**: ChatGPT
+- **Purpose**: Researching NLP libraries, OCR solutions, and comparing alternatives
+- **Example Prompts**:
+  - *"Compare PrettyTime NLP vs Natty for natural language date parsing"*
+  - *"What are the best Java libraries for OCR integration?"*
+  - *"How to handle timezone conversion in Java 21?"*
+
+#### 4. **Boilerplate Code Generation**
+- **Tool**: ChatGPT
+- **Purpose**: Generating DTOs, basic controller structures, and configuration templates
+- **Example Prompts**:
+  - *"Generate a Lombok-based DTO for appointment response with builder pattern"*
+  - *"Create a Spring Boot controller template with POST endpoint"*
 ---
 
 ## Alternative Approach
