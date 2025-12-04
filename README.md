@@ -38,9 +38,11 @@ This system automates the extraction, parsing, and normalization of such data in
 ## For Evaluation
 
 - **Demo Video:** [https://drive.google.com/file/d/1Sm21vXWDJ_VHmQU1A7SIcoWQguvRbxn0/view?usp=sharing](https://drive.google.com/file/d/1Sm21vXWDJ_VHmQU1A7SIcoWQguvRbxn0/view?usp=sharing)
+
 - **Live API:** [https://plum-2qnv.onrender.com/api/parse](https://plum-2qnv.onrender.com/api/parse)
 > ⚠️ **Note:** This project is hosted on a free cloud service.  
 > The server may take a few minutes to "wake up" on the first request, so you might experience some initial latency.
+
 -**Postman Workplace:** [https://www.postman.com/science-geoscientist-46200818/workspace/pranshu-tomer/collection/42984145-c260265f-e7f0-4ff6-88a4-688a3294e8ce?action=share&creator=42984145](https://www.postman.com/science-geoscientist-46200818/workspace/pranshu-tomer/collection/42984145-c260265f-e7f0-4ff6-88a4-688a3294e8ce?action=share&creator=42984145)
 
 ---
